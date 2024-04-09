@@ -12,8 +12,11 @@ function App() {
     const savedQrCodeUrlSaves = localStorage.getItem('qrCodeUrlSaves');
     if (savedQrCodeUrlSaves) {
       setQrCodeUrlSaves(JSON.parse(savedQrCodeUrlSaves));
+    } else {
+      setQrCodeUrlSaves([]);
     }
   }, []);
+  
 
   const saveQRCode = () => {
     if (qrCodeUrlSaves.includes(url)) {
@@ -63,6 +66,7 @@ function App() {
   }
 
   const handleRegenerate = async (url: string) => {
+
     if (!url.trim()) {
       toast.error('¡La URL es inválida!');
       return;
@@ -85,7 +89,7 @@ function App() {
       <Toaster richColors expand={true} position="bottom-right"/>
       <h1 className='text-3xl text-white text-center'>Generador de código QR</h1>
       
-      <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-y-10 w-1/2 p-2'>
+      <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-y-10 w-3/4 p-2'>
         <input 
           type="url"
           value={url}
@@ -100,7 +104,7 @@ function App() {
       </form>
 
       {imageSrc &&
-        <div className="qrCode-container flex flex-col items-center justify-center w-1/5 h-auto rounded-lg p-5 bg-gray-300 gap-y-5">
+        <div className="qrCode-container flex flex-col items-center justify-center w-1/2 lg:w-1/5 h-auto rounded-lg p-5 bg-gray-300 gap-y-5">
           <img src={imageSrc} alt="QR Code" />
           
           <div className="btn-container w-full flex justify-center items-center gap-x-2">
